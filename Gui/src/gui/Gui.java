@@ -37,6 +37,11 @@ public class Gui {
     }
     
         public void Detectar(String sentence) throws InvalidFormatException, IOException{
+        int auxvbn=0;
+        int auxvb=0;
+        int auxvbd=0;
+        int auxvbz=0;
+        int auxvbp=0;
         int posverboVB = 0;
         int posverboVBN = 0;
         int posverboVBD = 0;
@@ -73,21 +78,37 @@ public class Gui {
                 System.out.println(tokens[i]+"\t:\t"+tags[i]+"\t:\t"+probs[i]);
                 if(tags[i].equals("VBZ")   ){
                     posverboVBZ=i;
+                    auxvbz=1;
                 }
                 if(tags[i].equals("VBD")   ){
                     posverboVBD=i;
+                   auxvbd=1;
                 }
                 if(tags[i].equals("VBN")   ){
                     posverboVBN=i;
+                    auxvbn=1;
                 }
                 
                  if(tags[i].equals("VB")){
-                    posverboVB=i;                     
+                    posverboVB=i;    
+                    auxvb=1;
                  }
                 if(tags[i].equals("VBP")){
-                    posverboVBP=i;                     
+                    posverboVBP=i;      
+                    auxvbp=1;
                  }
                 
+                if(auxvbn>0){
+                    posverbo=posverboVBN;
+                }else if(auxvbd>0){
+                    posverbo=posverboVBD;
+                }else if(auxvb>0){
+                    posverbo=posverboVB;
+                }else if(auxvbp>0){
+                    posverbo=posverboVBP;
+                }else if(auxvbz>0){
+                    posverbo=posverboVBZ;
+                }
                  
                  
                 if(tags[i].equals("NNP") || tags[i].equals("PRP") || tags[i].equals("NNS") || tags[i].equals("NN")){
@@ -99,42 +120,18 @@ public class Gui {
                 }
                 
             }
-            
-            if(probs[posverboVBZ]>probs[posverboVBD]){
-                if(probs[posverboVBZ]>probs[posverboVBN]){
-                    if(probs[posverboVBZ]>probs[posverboVB]){
-                        if(probs[posverboVBZ]>probs[posverboVBP]){
-                            posverbo=posverboVBZ;
-                        }
-                    }
-                }
-                
-            }else if(probs[posverboVBD]>probs[posverboVBN]){
-                if(probs[posverboVBD]>probs[posverboVB]){
-                    if(probs[posverboVBD]>probs[posverboVBP]){
-                        posverbo=posverboVBD;
-                    }
-                }
-                
-            }else if(probs[posverboVBN]>probs[posverboVB]){
-                if(probs[posverboVBN]>probs[posverboVBP]){
-                    posverbo=posverboVBN;
-                }
-                
-            }else if(probs[posverboVB]>probs[posverboVBP]){
-                posverbo=posverboVB;
-                
-            }else{
-                posverbo=posverboVBP;
-            }
+
             if(possujeto<posverbo){
              
                 Interfaz.TextArea.setText("Activa");
+                System.out.println(estado);
                 System.out.println("Activa");
                 
             }else{
          
                 Interfaz.TextArea.setText("Pasiva");
+                System.out.println(posverbo);
+                System.out.println(possujeto);
                 System.out.println("Pasiva");
             }
             
