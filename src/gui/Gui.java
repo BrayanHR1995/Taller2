@@ -58,7 +58,16 @@ public class Gui {
         int posverboVBP = 0;
         int posverbo=0;
         int possujeto=0;
+        int possujetoNNP=0;
+        int possujetoNN=0;
+        int possujetoNNS=0;
+        int possujetoPRP=0;
+        int auxprp=0;
+        int auxnn=0;
+        int auxnnp=0;
+        int auxnns=0;
         boolean estado= false;
+        boolean estado1= false;
         InputStream tokenModelIn = null;
         InputStream posModelIn = null;
         
@@ -85,6 +94,16 @@ public class Gui {
             System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
             for(int i=0;i<tokens.length;i++){
                 System.out.println(tokens[i]+"\t:\t"+tags[i]+"\t:\t"+probs[i]);
+                estado1=false;
+                
+                if(tokens[i].equals("by")){
+                    String enviar =Interfaz.TextArea.getText();
+                    enviar = enviar + "Pasiva\n";
+                    Interfaz.TextArea.setText(enviar);
+                    System.out.println("Pasiva");
+                    estado1=true;
+                    break;
+                }
                 if(tags[i].equals("VBZ")   ){
                     posverboVBZ=i;
                     auxvbz=1;
@@ -107,6 +126,32 @@ public class Gui {
                     auxvbp=1;
                  }
                 
+
+
+                if(tags[i].equals("PRP")){     
+                        possujetoPRP=i; 
+                        auxprp=1;
+                }
+                if(tags[i].equals("NNS")){     
+                        possujetoNNS=i; 
+                        auxnns=1;
+                }
+                if (tags[i].equals("NN")) {
+                    if(estado==false){
+                        possujetoNN = i;
+                        auxnn=1;
+                        estado=true;
+                    }
+
+                }
+                if(tags[i].equals("NNP")){     
+                        possujetoNNP=i; 
+                        auxnnp=1;
+                }
+                
+            }
+            if(estado1==false){
+                
                 if(auxvbn>0){
                     posverbo=posverboVBN;
                 }else if(auxvbd>0){
@@ -118,31 +163,33 @@ public class Gui {
                 }else if(auxvbz>0){
                     posverbo=posverboVBZ;
                 }
-                 
-                 
-                if(tags[i].equals("NNP") || tags[i].equals("PRP") || tags[i].equals("NNS") || tags[i].equals("NN")){
-                    if(estado==false){
-                        possujeto=i;
-                        estado = true;
-                    }
-                    
-                }
                 
-            }
+                if(auxprp>0){
+                    possujeto=possujetoPRP;
+                }else if(auxnnp>0){
+                    possujeto=possujetoNNP;
+                }else if(auxnns>0){
+                    possujeto=possujetoNNS;
+                }else if(auxnn>0){
+                    possujeto=possujetoNN;
+                }
+            
+            
 
             if(possujeto<posverbo){
                 String enviar =Interfaz.TextArea.getText();
-                enviar = enviar + ","+"Activa";
+                enviar = enviar +"Activa\n";
                 Interfaz.TextArea.setText(enviar);
                 System.out.println("Activa");
                 
             }else{
                 String enviar =Interfaz.TextArea.getText();
-                enviar = enviar +","+ "Pasiva";
+                enviar = enviar + "Pasiva\n";
                 Interfaz.TextArea.setText(enviar);
                 System.out.println("Pasiva");
             }
             
+        }
         }
         catch (IOException e) {
             // Model loading failed, handle the error
