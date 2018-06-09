@@ -37,7 +37,12 @@ public class Gui {
     }
     
         public void Detectar(String sentence) throws InvalidFormatException, IOException{
-        int posverbo = 0;
+        int posverboVB = 0;
+        int posverboVBN = 0;
+        int posverboVBD = 0;
+        int posverboVBZ = 0;
+        int posverboVBP = 0;
+        int posverbo=0;
         int possujeto=0;
         boolean estado= false;
         InputStream tokenModelIn = null;
@@ -66,18 +71,61 @@ public class Gui {
             System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
             for(int i=0;i<tokens.length;i++){
                 System.out.println(tokens[i]+"\t:\t"+tags[i]+"\t:\t"+probs[i]);
-                if(tags[i].equals("VB")  || tags[i].equals("VBG") || tags[i].equals("VBN") || tags[i].equals("VBP") ){
-                    if(estado==false){
-                        posverbo=i;
-                        estado=true;
-                    }
-                    
-                    
+                if(tags[i].equals("VBZ")   ){
+                    posverboVBZ=i;
                 }
-                if(tags[i].equals("NNP") || tags[i].equals("PRP")){
-                    possujeto=i;
+                if(tags[i].equals("VBD")   ){
+                    posverboVBD=i;
+                }
+                if(tags[i].equals("VBN")   ){
+                    posverboVBN=i;
                 }
                 
+                 if(tags[i].equals("VB")){
+                    posverboVB=i;                     
+                 }
+                if(tags[i].equals("VBP")){
+                    posverboVBP=i;                     
+                 }
+                
+                 
+                 
+                if(tags[i].equals("NNP") || tags[i].equals("PRP") || tags[i].equals("NNS") || tags[i].equals("NN")){
+                    if(estado==false){
+                        possujeto=i;
+                        estado = true;
+                    }
+                    
+                }
+                
+            }
+            
+            if(probs[posverboVBZ]>probs[posverboVBD]){
+                if(probs[posverboVBZ]>probs[posverboVBN]){
+                    if(probs[posverboVBZ]>probs[posverboVB]){
+                        if(probs[posverboVBZ]>probs[posverboVBP]){
+                            posverbo=posverboVBZ;
+                        }
+                    }
+                }
+                
+            }else if(probs[posverboVBD]>probs[posverboVBN]){
+                if(probs[posverboVBD]>probs[posverboVB]){
+                    if(probs[posverboVBD]>probs[posverboVBP]){
+                        posverbo=posverboVBD;
+                    }
+                }
+                
+            }else if(probs[posverboVBN]>probs[posverboVB]){
+                if(probs[posverboVBN]>probs[posverboVBP]){
+                    posverbo=posverboVBN;
+                }
+                
+            }else if(probs[posverboVB]>probs[posverboVBP]){
+                posverbo=posverboVB;
+                
+            }else{
+                posverbo=posverboVBP;
             }
             if(possujeto<posverbo){
              
