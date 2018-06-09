@@ -11,6 +11,11 @@ import java.io.InputStream;
  
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import java.awt.TextArea;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Arrays;
+import javax.swing.JFileChooser;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
  
@@ -28,6 +33,10 @@ public class Gui {
     /**
      * @param args the command line arguments
      */
+   public static final String SEPARATOR=";";
+   public static final String QUOTE="\"";
+   public static String contenido;
+   public static BufferedReader br;
     public static void main(String[] args) {
         // TODO code application logic here
         Interfaz ventana = new Interfaz();
@@ -122,16 +131,15 @@ public class Gui {
             }
 
             if(possujeto<posverbo){
-             
-                Interfaz.TextArea.setText("Activa");
-                System.out.println(estado);
+                String enviar =Interfaz.TextArea.getText();
+                enviar = enviar + ","+"Activa";
+                Interfaz.TextArea.setText(enviar);
                 System.out.println("Activa");
                 
             }else{
-         
-                Interfaz.TextArea.setText("Pasiva");
-                System.out.println(posverbo);
-                System.out.println(possujeto);
+                String enviar =Interfaz.TextArea.getText();
+                enviar = enviar +","+ "Pasiva";
+                Interfaz.TextArea.setText(enviar);
                 System.out.println("Pasiva");
             }
             
@@ -157,5 +165,8 @@ public class Gui {
             }
         }
     }
-    
+
+
+     
+
 }
