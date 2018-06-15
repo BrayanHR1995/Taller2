@@ -173,6 +173,7 @@ public class Interfaz extends javax.swing.JFrame {
       
         try {
             new VozActPas().Detectar(sentence);
+            new VozActPas().almacenar();
         } catch (IOException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -199,6 +200,7 @@ public class Interfaz extends javax.swing.JFrame {
          
          br =new BufferedReader(new FileReader(abre));
          String line = br.readLine();
+         int i=0;
          while (null!=line) {
             String [] fields = line.split(SEPARATOR);
             
@@ -206,8 +208,11 @@ public class Interfaz extends javax.swing.JFrame {
             contenido = contenido + Arrays.toString(fields) + "\n";
             line = br.readLine();
              System.out.println(line);
+             System.out.println(i++);
             new VozActPas().Detectar(line);
+            new VozActPas().almacenar();
          }
+         
          
       } catch (Exception e) {
         
@@ -228,6 +233,7 @@ public class Interfaz extends javax.swing.JFrame {
       return result;
    }
     
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Boton;

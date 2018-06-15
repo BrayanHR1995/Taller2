@@ -25,12 +25,15 @@ public class VozActPas {
     private static boolean verb_aux;
     private static boolean by_or_for;
     private static String forma;
-    
+    String p="";
     public String Detectar(String sentence) throws InvalidFormatException, IOException{
 
         InputStream tokenModelIn = null;
         InputStream posModelIn = null;
-        String p=null;
+        
+        
+        
+        
         try {
          
             // tokenize the sentence
@@ -82,19 +85,20 @@ public class VozActPas {
         
         if(subj==true && (verb_aux==true ||verb_participe==true) && by_or_for== true){
             forma="Pasiva\n";
-         //   Interfaz.TextArea.getText();
-         //   p=p+forma;
-         //   Interfaz.TextArea.setText(p);
+         
+         
+         //Esta lineas estan comentadas ya que Travis CI no puede trabajar con interfaz grafica
+
         }else if(subj==true && verb_aux==true && verb_participe==true){
             forma="Pasiva\n";
-         //   Interfaz.TextArea.getText();
-         //   p=p+forma;
-         //   Interfaz.TextArea.setText(p);
+          
+         //Esta lineas estan comentadas ya que Travis CI no puede trabajar con interfaz grafica   
+
         }else{
             forma="Activa\n";
-         // Interfaz.TextArea.getText();
-         //   p=p+forma;
-         //   Interfaz.TextArea.setText(p);
+            
+         //Esta lineas estan comentadas ya que Travis CI no puede trabajar con interfaz grafica   
+
         }
 
         
@@ -125,4 +129,11 @@ public class VozActPas {
         System.out.println(forma);
      return forma;   
     }
+    
+    public void almacenar(){
+            p=Interfaz.TextArea.getText();
+            p=p+forma;
+            Interfaz.TextArea.setText(p);
+    }
+            
 }
