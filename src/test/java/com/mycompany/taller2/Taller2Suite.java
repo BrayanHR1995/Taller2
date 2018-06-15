@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
  * @author BrayanHR09
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ com.mycompany.taller2.VozActPasTest.class})
+@Suite.SuiteClasses({com.mycompany.taller2.VozActPasTest.class})
 public class Taller2Suite {
 
     @BeforeClass

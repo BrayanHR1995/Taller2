@@ -43,9 +43,9 @@ public class VozActPasTest {
     @Test
     public void testDetectar() throws Exception {
         System.out.println("Detectar");
-        String sentence = "Hola";
+        String sentence = "He is a man";
         VozActPas instance = new VozActPas();
-        String expResult = "Pasiva\n";
+        String expResult = "Activa\n";
         String result = instance.Detectar(sentence);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

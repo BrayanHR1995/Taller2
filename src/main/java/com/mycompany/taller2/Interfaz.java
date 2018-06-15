@@ -193,7 +193,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     }//GEN-LAST:event_jButton1ActionPerformed
 
-        public String mostrarCsv ()throws IOException{
+    public String mostrarCsv ()throws IOException{
 
       try {
          

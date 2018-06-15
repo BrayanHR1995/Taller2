@@ -20,32 +20,16 @@ import opennlp.tools.util.InvalidFormatException;
  * @author BrayanHR09
  */
 public class VozActPas {
+    private static boolean subj;
+    private static boolean verb_participe;
+    private static boolean verb_aux;
+    private static boolean by_or_for;
+    private static String forma;
+    
     public String Detectar(String sentence) throws InvalidFormatException, IOException{
-        int auxvbn=0;
-        int auxvb=0;
-        int auxvbd=0;
-        int auxvbz=0;
-        int auxvbp=0;
-        int posverboVB = 0;
-        int posverboVBN = 0;
-        int posverboVBD = 0;
-        int posverboVBZ = 0;
-        int posverboVBP = 0;
-        int posverbo=0;
-        int possujeto=0;
-        int possujetoNNP=0;
-        int possujetoNN=0;
-        int possujetoNNS=0;
-        int possujetoPRP=0;
-        int auxprp=0;
-        int auxnn=0;
-        int auxnnp=0;
-        int auxnns=0;
-        boolean estado= false;
-        boolean estado1= false;
+
         InputStream tokenModelIn = null;
         InputStream posModelIn = null;
-        String enviar = null;
         String p=null;
         try {
          
@@ -67,108 +51,56 @@ public class VozActPas {
             // Getting the probabilities of the tags given to the tokens
             double probs[] = posTagger.probs();
             
-
-            for(int i=0;i<tokens.length;i++){
-                
-                estado1=false;
-                
-                if(tokens[i].equals("by")){
-                    enviar= "Pasiva\n";
-                 //   p =Interfaz.TextArea.getText();
-                 //   p = p + enviar;
-                 //   Interfaz.TextArea.setText(p);
-                    estado1=true;
-                    break;
-                }
-                if(tags[i].equals("VBZ")   ){
-                    posverboVBZ=i;
-                    auxvbz=1;
-                }
-                if(tags[i].equals("VBD")   ){
-                    posverboVBD=i;
-                   auxvbd=1;
-                }
-                if(tags[i].equals("VBN")   ){
-                    posverboVBN=i;
-                    auxvbn=1;
-                }
-                
-                 if(tags[i].equals("VB")){
-                    posverboVB=i;    
-                    auxvb=1;
-                 }
-                if(tags[i].equals("VBP")){
-                    posverboVBP=i;      
-                    auxvbp=1;
-                 }
-                
-
-
-                if(tags[i].equals("PRP")){     
-                        possujetoPRP=i; 
-                        auxprp=1;
-                }
-                if(tags[i].equals("NNS")){     
-                        possujetoNNS=i; 
-                        auxnns=1;
-                }
-                if (tags[i].equals("NN")) {
-                    if(estado==false){
-                        possujetoNN = i;
-                        auxnn=1;
-                        estado=true;
-                    }
-
-                }
-                if(tags[i].equals("NNP")){     
-                        possujetoNNP=i; 
-                        auxnnp=1;
-                }
-                
+        subj=false;
+        verb_participe=false;
+        by_or_for=false;
+        verb_aux=false;
+        forma="";
+        for(int i=0;i<tags.length;i++){
+            if(tags[i].equals("NNP") || tags[i].equals("NNPS") || tags[i].equals("PRP$") || tags[i].equals("NN")){
+                subj=true;
             }
-            if(estado1==false){
-                
-                if(auxvbn>0){
-                    posverbo=posverboVBN;
-                }else if(auxvbd>0){
-                    posverbo=posverboVBD;
-                }else if(auxvb>0){
-                    posverbo=posverboVB;
-                }else if(auxvbp>0){
-                    posverbo=posverboVBP;
-                }else if(auxvbz>0){
-                    posverbo=posverboVBZ;
-                }
-                
-                if(auxprp>0){
-                    possujeto=possujetoPRP;
-                }else if(auxnnp>0){
-                    possujeto=possujetoNNP;
-                }else if(auxnns>0){
-                    possujeto=possujetoNNS;
-                }else if(auxnn>0){
-                    possujeto=possujetoNN;
-                }
-            
-            
-
-            if(possujeto<posverbo){
-                enviar= "Activa\n";
-               // p =Interfaz.TextArea.getText();
-               // p = p + enviar;
-               // Interfaz.TextArea.setText(p);
-               
-                
-            }else{
-                enviar= "Pasiva\n";
-              //  p =Interfaz.TextArea.getText();
-              //  p = p + enviar;
-              //  Interfaz.TextArea.setText(p);
-                
-            }
-            
-            
         }
+        
+         for(int i=0;i<tags.length;i++){
+            if(tags[i].equals("VBG") || tags[i].equals("VBN")){
+                verb_participe=true;
+            }
+        }
+         
+        for(int i=0;i<tags.length;i++){
+            if(tokens[i].equals("was") || tokens[i].equals("were")){
+                verb_aux=true;
+            }
+        }
+        
+        for(int i=0;i<tokens.length;i++){
+            if(tokens[i].equals("by") || tokens[i].equals("for")){
+                by_or_for=true;
+            }
+        }
+        
+        if(subj==true && (verb_aux==true ||verb_participe==true) && by_or_for== true){
+            forma="Pasiva\n";
+         //   Interfaz.TextArea.getText();
+         //   p=p+forma;
+         //   Interfaz.TextArea.setText(p);
+        }else if(subj==true && verb_aux==true && verb_participe==true){
+            forma="Pasiva\n";
+         //   Interfaz.TextArea.getText();
+         //   p=p+forma;
+         //   Interfaz.TextArea.setText(p);
+        }else{
+            forma="Activa\n";
+         // Interfaz.TextArea.getText();
+         //   p=p+forma;
+         //   Interfaz.TextArea.setText(p);
+        }
+
+        
+            
+
+
         }
         catch (IOException e) {
             // Model loading failed, handle the error
@@ -190,6 +122,7 @@ public class VozActPas {
                 }
             }
         }
-        return enviar;
+        System.out.println(forma);
+     return forma;   
     }
 }
