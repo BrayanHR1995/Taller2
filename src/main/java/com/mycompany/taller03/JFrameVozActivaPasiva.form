@@ -160,7 +160,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese una frase en ingles:"/>
+        <Property name="text" type="java.lang.String" value="Ingrese una frase en ingles, Ejemplo: He is a man, Voz activa"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="enteredPhrase">
