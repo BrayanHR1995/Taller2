@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.taller2;
+package com.mycompany.taller03;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author BrayanHR09
  */
-public class VozActPasTest {
+public class PosTaggerTest {
     
-    public VozActPasTest() {
+    public PosTaggerTest() {
     }
     
     @BeforeClass
@@ -37,16 +37,27 @@ public class VozActPasTest {
     public void tearDown() {
     }
 
+ 
+
     /**
-     * Test of Detectar method, of class VozActPas.
+     * Test of decomposePhrase method, of class PosTagger.
      */
+
+    
+       /**
+     * Test of getSentence method, of class PosTagger.
+     */
+
     @Test
-    public void testDetectar() throws Exception {
-        System.out.println("Detectar");
-        String sentence = "He is a man";
-        VozActPas instance = new VozActPas();
-        String expResult = "Activa\n";
-        String result = instance.Detectar(sentence);
+    public void testAnalyzePhrase() {
+        System.out.println("analyzePhrase");
+        String p_sentence = "He is a man";
+       PosTagger instance= new PosTagger();
+        instance.decomposePhrase(p_sentence);
+        
+        String expResult = "Voz activa";
+        String result = instance.analyzePhrase();
+
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         

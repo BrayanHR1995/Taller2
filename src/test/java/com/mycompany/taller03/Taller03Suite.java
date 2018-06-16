@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.taller2;
+package com.mycompany.taller03;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,8 +17,8 @@ import org.junit.runners.Suite;
  * @author BrayanHR09
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({com.mycompany.taller2.VozActPasTest.class})
-public class Taller2Suite {
+@Suite.SuiteClasses({ com.mycompany.taller03.PosTaggerTest.class})
+public class Taller03Suite {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
