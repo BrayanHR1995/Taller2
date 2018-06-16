@@ -125,7 +125,6 @@ public class VozActPas {
                 }
             }
         }
-        System.out.println(forma);
      return forma;   
     }
     

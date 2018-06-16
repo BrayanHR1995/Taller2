@@ -15,6 +15,6 @@ public class Principal {
         Interfaz ventana = new Interfaz();
         ventana.setTitle("Interfaz Taller Dos");
         ventana.setVisible(true);
-        
+        ventana.setResizable(false);
     }
 }
