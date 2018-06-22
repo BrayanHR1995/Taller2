@@ -238,10 +238,11 @@ File abre;
             long timeStart = System.currentTimeMillis();
             resultado = csv.mostrarCsv(String.valueOf(abre));
             frases = resultado.split("\n");
+            posTagger.decomposePhrase();
             for(int i=0;i<frases.length;i++){
                 aux=frases[i].split(",");
                 aux[1]=aux[1].replaceFirst(" ", "");
-                posTagger.decomposePhrase(aux[0]);
+                posTagger.comparar(aux[0]);
                 result_analisis = posTagger.analyzePhrase();
                 mensaje=mensaje+"Frase analizada: "+posTagger.getSentence()+"\n"+"Forma verbal de la frase: "+aux[1]
                         +"\n"+"Resultado del analisis: la frase esta en "+result_analisis+"\n";
@@ -279,7 +280,8 @@ File abre;
         String phrase=enteredPhrase.getText();
         String[] aux = phrase.split(",");
         aux[1]=aux[1].replaceFirst(" ", "");
-        posTagger.decomposePhrase(aux[0]);
+        posTagger.decomposePhrase();
+        posTagger.comparar(aux[0]);
         String result = posTagger.analyzePhrase();
         jTextArea1.setText("Frase ingresada: " + posTagger.getSentence() + "\n" 
                             + "Forma verbal de frase: " + aux[1] + "\n" 

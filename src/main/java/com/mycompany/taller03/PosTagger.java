@@ -58,6 +58,7 @@ public class PosTagger {
     
     public String getSentence(){
         return sentence;
+        
     }
     
     public String analyzePhrase(){
@@ -97,27 +98,19 @@ public class PosTagger {
         }else{
             forma="Voz activa";
         }
+        
         return forma;
     }
     
-    public void decomposePhrase(String p_sentence){
-        tokenModelIn = null;
-        posModelIn = null;
-        sentence=null;
-        tokenModel=null;
-        tokenizer=null;
-        tokens=null;
-        posModel=null;
-        posTagger=null;
-        tags=null;
-        probs=null;
+    public void decomposePhrase(){
+
         try {
-            sentence = p_sentence;
+            
             // tokenize the sentence
             tokenModelIn = new FileInputStream("en-token.bin");
             tokenModel = new TokenizerModel(tokenModelIn);
             tokenizer = new TokenizerME(tokenModel);
-            tokens = tokenizer.tokenize(sentence);
+
  
             // Parts-Of-Speech Tagging
             // reading parts-of-speech model to a stream 
@@ -127,9 +120,7 @@ public class PosTagger {
             // initializing the parts-of-speech tagger with model 
             posTagger = new POSTaggerME(posModel);
             // Tagger tagging the tokens
-            tags= posTagger.tag(tokens);
-            // Getting the probabilities of the tags given to the tokens
-            probs= posTagger.probs();
+
             
         }
         catch (IOException e) {
@@ -152,5 +143,14 @@ public class PosTagger {
                 }
             }
         }
+       
     }
+     public void comparar(String p_sentence){
+         sentence = p_sentence;
+         tokens = tokenizer.tokenize(sentence);
+         tags= posTagger.tag(tokens);
+         
+         
+     }
+    
 }

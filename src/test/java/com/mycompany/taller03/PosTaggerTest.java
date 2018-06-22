@@ -52,8 +52,9 @@ public class PosTaggerTest {
     public void testAnalyzePhrase() {
         System.out.println("analyzePhrase");
         String p_sentence = "He is a man";
-       PosTagger instance= new PosTagger();
-        instance.decomposePhrase(p_sentence);
+        PosTagger instance= new PosTagger();
+        instance.decomposePhrase();
+        instance.comparar(p_sentence);
         
         String expResult = "Voz activa";
         String result = instance.analyzePhrase();
