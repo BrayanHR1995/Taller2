@@ -37,11 +37,11 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Component id="correctas" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="incorrectas" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="correctas" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="incorrectas" min="-2" pref="31" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="totalPhrases" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="totalPhrases" min="-2" pref="38" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
